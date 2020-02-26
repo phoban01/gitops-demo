@@ -16,5 +16,5 @@ spec:
         app.kubernetes.io/name: nginx
     spec:
       containers:
-      - image: nginx:latest
+      - image: docker.pkg.github.com/phoban01/gitops-demo/nginx:latest
         name: nginx
