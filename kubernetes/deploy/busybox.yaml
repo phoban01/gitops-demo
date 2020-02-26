@@ -18,4 +18,7 @@ spec:
       containers:
       - image: busybox
         name: busybox
-        command: sleep 300
+        command: 
+          - sleep
+        args:
+          - 300
