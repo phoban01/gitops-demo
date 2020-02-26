@@ -6,11 +6,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag docker.pkg.github.com/phoban01/gitops-demo/nginx:v1.0.0
+      run: docker build . --file Dockerfile --tag docker.pkg.github.com/phoban01/gitops-demo/nginx:${GITHUB_SHA:0:8}
     - name: Push the Docker image
       run: |
         echo "$GH_TOKEN" | docker login docker.pkg.github.com -u "$GH_USER" --password-stdin
-        docker push docker.pkg.github.com/phoban01/gitops-demo/nginx:v1.0.0
+        docker push docker.pkg.github.com/phoban01/gitops-demo/nginx:${GITHUB_SHA:0:8}
       env:
         GH_USER: ${{ secrets.GH_USER }}
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    - name: Update nginx deployment
+      run: sed -i s/nginx:latest/:${GITHUB_SHA:0:8}/ kubernetes/deploy/nginx.yaml
