@@ -21,4 +21,4 @@ spec:
         command: 
           - sleep
         args:
-          - 300
+          - '300'
