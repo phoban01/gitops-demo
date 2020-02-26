@@ -9,7 +9,7 @@ jobs:
       run: docker build . --file Dockerfile --tag docker.pkg.github.com/phoban01/gitops-demo/nginx:v1.0.0
     - name: Push the Docker image
       run: |
-        echo "$GH_TOKEN" docker login docker.pkg.github.com -u "$GH_USER" --password-stdin
+        echo "$GH_TOKEN" | docker login docker.pkg.github.com -u "$GH_USER" --password-stdin
         docker push docker.pkg.github.com/phoban01/gitops-demo/nginx:v1.0.0
       env:
         GH_USER: ${{ secrets.GH_USER }}
